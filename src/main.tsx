@@ -9,9 +9,11 @@ import './design/design.css';
 import './components/shell.css';
 import App from './App';
 import { captureInstallPrompt } from './services/platform';
+import { installViewportHeal } from './services/viewportHeal';
 import { dataMode } from './data/db';
 
 captureInstallPrompt();
+installViewportHeal();
 
 if (import.meta.env.DEV) {
   // Dev-only test hook for driving navigation from the browser console.
