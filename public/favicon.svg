@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D4FFE0"/>
+      <stop offset="0.45" stop-color="#A0F5B8"/>
+      <stop offset="1" stop-color="#2FCB6E"/>
+    </linearGradient>
+    <linearGradient id="key" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5FFF7"/>
+      <stop offset="1" stop-color="#A0F5B8"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#A0F5B8" stroke-opacity="0.13" stroke-width="30"/>
+  <g transform="rotate(-90 256 256)">
+    <circle cx="256" cy="256" r="200" fill="none" stroke="#37D978" stroke-opacity="0.55" stroke-width="30"
+      stroke-dasharray="1047 210" stroke-linecap="round" filter="url(#glow)"/>
+    <circle cx="256" cy="256" r="200" fill="none" stroke="url(#arc)" stroke-width="30"
+      stroke-dasharray="1047 210" stroke-linecap="round"/>
+  </g>
+  <circle cx="83" cy="156" r="24" fill="#A0F5B8" filter="url(#glow)"/>
+  <circle cx="83" cy="156" r="11" fill="#F5FFF7"/>
+  <path d="M256 158a54 54 0 0 1 30 98.9L302 352a10 10 0 0 1-9.9 11.6h-72.2A10 10 0 0 1 210 352l16-95.1A54 54 0 0 1 256 158z" fill="url(#key)"/>
+</svg>

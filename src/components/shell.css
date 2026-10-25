@@ -1,0 +1,318 @@
+/* ═════════════════════ Ambient background ═════════════════════ */
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(140% 70% at 50% -10%, #0f1b14 0%, var(--bg-1) 45%, var(--bg-0) 100%);
+}
+.ambient__orb {
+  position: absolute;
+  border-radius: 50%;
+  /* Radial gradients are already soft; a CSS blur here is expensive on iPhone GPUs. */
+  will-change: transform;
+}
+.ambient__orb--a {
+  width: 70vmax;
+  height: 70vmax;
+  left: -30vmax;
+  top: -38vmax;
+  background: radial-gradient(circle, rgba(55, 217, 120, 0.22), rgba(55, 217, 120, 0) 65%);
+  animation: orb-a 26s ease-in-out infinite alternate;
+}
+.ambient__orb--b {
+  width: 60vmax;
+  height: 60vmax;
+  right: -32vmax;
+  bottom: -30vmax;
+  background: radial-gradient(circle, rgba(31, 160, 96, 0.16), rgba(31, 160, 96, 0) 65%);
+  animation: orb-b 32s ease-in-out infinite alternate;
+}
+.ambient__orb--c {
+  width: 40vmax;
+  height: 40vmax;
+  right: -10vmax;
+  top: 20vh;
+  background: radial-gradient(circle, rgba(160, 245, 184, 0.06), rgba(160, 245, 184, 0) 65%);
+  animation: orb-c 22s ease-in-out infinite alternate;
+}
+@keyframes orb-a {
+  to {
+    transform: translate3d(12vmax, 8vmax, 0) scale(1.08);
+  }
+}
+@keyframes orb-b {
+  to {
+    transform: translate3d(-10vmax, -6vmax, 0) scale(1.12);
+  }
+}
+@keyframes orb-c {
+  to {
+    transform: translate3d(-14vmax, 10vmax, 0);
+  }
+}
+.ambient__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(160, 245, 184, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(160, 245, 184, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: center top;
+  -webkit-mask-image: radial-gradient(90% 55% at 50% 0%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(90% 55% at 50% 0%, #000 0%, transparent 75%);
+}
+.ambient__grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.ambient__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+html[data-effects='reduced'] .ambient__orb,
+html[data-effects='minimal'] .ambient__orb {
+  animation: none;
+}
+html[data-effects='minimal'] .ambient__grain {
+  display: none;
+}
+
+/* ═════════════════════ App frame ═════════════════════ */
+
+.app {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+.app__viewport {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  height: 100%;
+  overflow: hidden;
+}
+.tab-layer {
+  position: absolute;
+  inset: 0;
+}
+.tab-layer[hidden] {
+  display: none;
+}
+
+/* ═════════════════════ Page ═════════════════════ */
+
+.route {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+.page-frame {
+  position: absolute;
+  inset: 0;
+}
+.page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: calc(var(--safe-top) + 12px) calc(var(--gutter) + var(--safe-right)) var(--tabbar-space) calc(var(--gutter) + var(--safe-left));
+  scrollbar-width: none;
+}
+.page::-webkit-scrollbar {
+  display: none;
+}
+.page--sub {
+  padding-top: calc(var(--safe-top) + 60px);
+}
+.page__topbar {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--safe-top) + 56px);
+  padding: var(--safe-top) calc(10px + var(--safe-right)) 0 calc(10px + var(--safe-left));
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+.page__topbar > * {
+  pointer-events: auto;
+}
+.page__topbar-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 9, 8, 0.94), rgba(6, 9, 8, 0.78));
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid var(--line-1);
+  pointer-events: none !important;
+}
+.page__topbar-title {
+  position: absolute;
+  left: 64px;
+  right: 64px;
+  text-align: center;
+  font-weight: 750;
+  font-size: var(--fs-md);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none !important;
+}
+.page__topbar-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+.page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 40px;
+  padding: 0 12px 0 6px;
+  border-radius: var(--r-pill);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: var(--mint);
+  background: rgba(6, 9, 8, 0.5);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.page__back svg {
+  width: 22px;
+  height: 22px;
+}
+.page__hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin: 8px 2px var(--s-5);
+}
+.page__hero-title {
+  font-family: var(--font-display);
+  font-size: 27px;
+  font-weight: 620;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.page__hero-sub {
+  margin-top: 8px;
+  text-wrap: pretty;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  max-width: 34ch;
+}
+.page__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+/* ═════════════════════ Tab bar ═════════════════════ */
+
+.tabbar {
+  position: fixed;
+  z-index: 40;
+  left: 50%;
+  bottom: max(var(--safe-bottom), 12px);
+  width: min(calc(100% - 24px), 520px);
+  height: var(--tabbar-h);
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 6px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(20, 30, 24, 0.82), rgba(8, 12, 10, 0.9));
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+  box-shadow: var(--shadow-float);
+}
+.tabbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160, 245, 184, 0.45), transparent);
+}
+.tabbar__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 20px;
+  color: var(--text-3);
+  transition: color var(--dur-2);
+}
+.tabbar__item[aria-current='page'] {
+  color: var(--text-1);
+}
+.tabbar__icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+.tabbar__icon svg {
+  width: 24px;
+  height: 24px;
+}
+.tabbar__label {
+  position: relative;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.tabbar__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: radial-gradient(80% 90% at 50% 0%, rgba(160, 245, 184, 0.2), rgba(160, 245, 184, 0.04) 70%);
+  box-shadow: inset 0 0 0 1px rgba(160, 245, 184, 0.16);
+}
+.tabbar__bar {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 22px;
+  height: 3px;
+  margin-left: -11px;
+  border-radius: 0 0 3px 3px;
+  background: var(--mint);
+  box-shadow: 0 0 12px 1px var(--glow), 0 0 4px var(--mint);
+}
+.tabbar__badge {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--warn);
+  box-shadow: 0 0 0 2px #0b110e;
+}
+
+/* ═════════════════════ Desktop ═════════════════════ */
+
+@media (min-width: 720px) {
+  .app__viewport {
+    border-left: 1px solid var(--line-1);
+    border-right: 1px solid var(--line-1);
+    background: rgba(5, 8, 7, 0.35);
+  }
+}

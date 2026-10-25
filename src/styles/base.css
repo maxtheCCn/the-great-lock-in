@@ -1,0 +1,239 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--bg-0);
+}
+
+body {
+  margin: 0;
+  background: var(--bg-0);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  position: fixed;
+  inset: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--mint);
+}
+
+::selection {
+  background: rgba(160, 245, 184, 0.28);
+}
+
+:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+input,
+textarea {
+  /* ≥16px stops iOS Safari from zooming into focused fields. */
+  font-size: 16px;
+}
+
+/* ── Typography ─────────────────────────────────────────── */
+
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  font-variant-numeric: tabular-nums;
+}
+
+.t-h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+.t-h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 560;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.t-h3 {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.t-body {
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+.t-small {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+
+.t-eyebrow {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--text-3);
+}
+
+/* Tracked caps are reserved for full-screen cinematic moments only. */
+.t-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+
+.t-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.t-num {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.t-accent {
+  color: var(--mint);
+}
+.t-muted {
+  color: var(--text-2);
+}
+.t-faint {
+  color: var(--text-3);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Layout helpers ─────────────────────────────────────── */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  align-items: center;
+}
+.between {
+  justify-content: space-between;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+.gap-1 { gap: var(--s-1); }
+.gap-2 { gap: var(--s-2); }
+.gap-3 { gap: var(--s-3); }
+.gap-4 { gap: var(--s-4); }
+.gap-5 { gap: var(--s-5); }
+.gap-6 { gap: var(--s-6); }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-3);
+}
+
+/* ── Effects levels ─────────────────────────────────────── */
+
+html[data-effects='minimal'] *,
+html[data-effects='minimal'] *::before,
+html[data-effects='minimal'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

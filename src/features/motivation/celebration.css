@@ -1,0 +1,78 @@
+.celebrate {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 42%, rgba(20, 52, 33, 0.96), rgba(3, 6, 4, 0.98) 65%);
+  overflow: hidden;
+}
+.celebrate__rays {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: 180vmax;
+  height: 180vmax;
+  margin: -90vmax 0 0 -90vmax;
+  background: repeating-conic-gradient(from 0deg, rgba(160, 245, 184, 0.07) 0deg 6deg, transparent 6deg 18deg);
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 45%);
+  mask-image: radial-gradient(circle, #000 0%, transparent 45%);
+  animation: rays 40s linear infinite;
+}
+@keyframes rays {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.celebrate__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, transparent 30%, rgba(0, 0, 0, 0.6) 100%);
+}
+.celebrate__content {
+  position: relative;
+  width: min(100%, 420px);
+  padding: calc(var(--safe-top) + 20px) 28px calc(max(var(--safe-bottom), 16px) + 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.celebrate__emblem {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 36px;
+}
+.celebrate__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(160, 245, 184, 0.7);
+  box-shadow: 0 0 30px rgba(55, 217, 120, 0.5);
+}
+.celebrate__kicker {
+  color: var(--mint);
+}
+.celebrate__title {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 9vw, 42px);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.celebrate__title span {
+  display: inline-block;
+}
+.celebrate__desc {
+  margin-top: 12px;
+  color: var(--text-2);
+  max-width: 30ch;
+}
+.celebrate__cta {
+  margin-top: 40px;
+  width: 100%;
+}

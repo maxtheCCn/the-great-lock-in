@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+    <title>The Great Lock In</title>
+    <meta name="description" content="Your private fitness transformation command center." />
+    <meta name="theme-color" content="#060908" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="TGLI" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/apple-splash-portrait-1320x2868.png" />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/apple-splash-portrait-1206x2622.png" />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/apple-splash-portrait-1290x2796.png" />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/apple-splash-portrait-1179x2556.png" />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/apple-splash-portrait-1284x2778.png" />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/apple-splash-portrait-1125x2436.png" />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/apple-splash-portrait-750x1334.png" />
+    <style>
+      html, body { background: #060908; margin: 0; }
+      #boot { position: fixed; inset: 0; display: grid; place-items: center; }
+      #boot svg { width: 64px; height: 64px; opacity: .9; animation: boot 1.6s ease-in-out infinite; }
+      @keyframes boot { 50% { opacity: .35; transform: scale(.94); } }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div id="boot" aria-hidden="true">
+        <svg viewBox="0 0 512 512"><circle cx="256" cy="256" r="200" fill="none" stroke="#A0F5B8" stroke-width="30" stroke-dasharray="1047 210" stroke-linecap="round" transform="rotate(-90 256 256)"/></svg>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,140 @@
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.ms-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 6px 14px;
+  border-radius: var(--r-md);
+  background: rgba(160, 245, 184, 0.03);
+  box-shadow: inset 0 0 0 1px var(--line-1);
+  text-align: center;
+}
+.ms-cell--earned {
+  background: radial-gradient(90% 70% at 50% 20%, rgba(55, 217, 120, 0.12), transparent 70%), rgba(160, 245, 184, 0.04);
+  box-shadow: inset 0 0 0 1px rgba(160, 245, 184, 0.16);
+}
+.ms-cell__title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.ms-cell__sub {
+  font-size: 10.5px;
+  color: var(--text-3);
+  line-height: 1.25;
+}
+
+.goal-card__top {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.goal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.scale5 {
+  display: flex;
+  gap: 6px;
+}
+.scale5 button {
+  flex: 1;
+  height: 40px;
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-3);
+  background: rgba(160, 245, 184, 0.04);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  transition: all var(--dur-2);
+}
+.scale5 button[data-on='true'] {
+  color: var(--text-on-accent);
+  background: linear-gradient(180deg, #b8f9c9, #6fe395);
+  box-shadow: 0 0 14px -4px var(--glow);
+}
+.journal-text {
+  min-height: 220px !important;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.dots {
+  display: inline-flex;
+  gap: 3px;
+}
+.dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(160, 245, 184, 0.14);
+}
+.dots i[data-on='true'] {
+  background: var(--mint);
+}
+
+.rv-hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.rv-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.rv-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--text-3);
+}
+.rv-day span {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 10px;
+}
+.rv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--line-1);
+  font-size: 14px;
+}
+.rv-row:first-child {
+  border-top: 0;
+}
+.rv-row b {
+  font-family: var(--font-display);
+  font-weight: 560;
+  font-size: 15px;
+}
+.rv-missing {
+  font-size: 12px;
+  color: var(--text-4);
+  font-style: italic;
+}
+.week-item__bar {
+  display: flex;
+  gap: 2px;
+  height: 6px;
+  width: 70px;
+}
+.week-item__bar i {
+  flex: 1;
+  border-radius: 2px;
+}
