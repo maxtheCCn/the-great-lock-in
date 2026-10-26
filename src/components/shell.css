@@ -108,6 +108,22 @@ html[data-vp-gap] .ambient__vignette {
     linear-gradient(to top, var(--bg-0) 0, rgba(5, 8, 7, 0) 160px),
     radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
 }
+/* iOS 26 paints that band in the background-color of the fixed element touching
+   the bottom edge (otherwise the tab bar's green), so give it a solid one that
+   matches the fade above. Sheets (z 60) still cover it and lend their own colour. */
+.edge-guard {
+  display: none;
+}
+html[data-vp-gap] .edge-guard {
+  display: block;
+  position: fixed;
+  z-index: 50;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  background-color: var(--bg-0);
+}
 .app__viewport {
   position: relative;
   width: 100%;

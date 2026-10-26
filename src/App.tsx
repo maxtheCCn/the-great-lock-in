@@ -153,6 +153,7 @@ export default function App() {
           )
         )}
       </AnimatePresence>
+      <div className="edge-guard" aria-hidden />
       <ToastHost />
       <ConfirmHost />
     </MotionConfig>
