@@ -1,5 +1,6 @@
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
+import { RefreshCw } from 'lucide-react';
 import { useRegisterSW } from 'virtual:pwa-register/react';
 import { AmbientBackground } from '@/components/Ambient';
 import { TabBar } from '@/components/TabBar';
@@ -10,7 +11,8 @@ import { useActiveLockIn } from '@/data/hooks';
 import { getSettings, useSettings } from '@/data/settings';
 import { db, dataMode } from '@/data/db';
 import { LockInContext } from '@/state/lockin';
-import { useUI, toast } from '@/state/ui';
+import { useUI } from '@/state/ui';
+import { checkForUpdate, useUpdates } from '@/services/updates';
 import { Onboarding } from '@/features/onboarding/Onboarding';
 import { CheckInSheet } from '@/features/checkin/CheckInSheet';
 import { DashboardEditor } from '@/features/home/DashboardEditor';
@@ -27,17 +29,67 @@ function useEffectsAttribute() {
   return settings?.effects ?? 'full';
 }
 
+/** Registers the service worker and keeps looking for new versions while the app is used. */
 function UpdatePrompt() {
   const {
     needRefresh: [needRefresh],
     updateServiceWorker,
   } = useRegisterSW({
+    onRegisteredSW: (_url, registration) => {
+      if (registration) useUpdates.setState({ registration });
+    },
     onRegisterError: (e) => console.warn('SW registration failed', e),
   });
   useEffect(() => {
-    if (needRefresh) toast('A new version of TGLI is ready.', { action: { label: 'Reload', run: () => updateServiceWorker(true) } });
-  }, [needRefresh, updateServiceWorker]);
+    useUpdates.setState({ apply: () => void updateServiceWorker(true) });
+  }, [updateServiceWorker]);
+  useEffect(() => {
+    if (needRefresh) useUpdates.setState({ needRefresh: true, dismissed: false });
+  }, [needRefresh]);
+  // Home Screen apps resume from the background without reloading, so check on every return and hourly.
+  useEffect(() => {
+    const check = () => {
+      if (!document.hidden) void checkForUpdate();
+    };
+    document.addEventListener('visibilitychange', check);
+    const id = setInterval(check, 60 * 60 * 1000);
+    return () => {
+      document.removeEventListener('visibilitychange', check);
+      clearInterval(id);
+    };
+  }, []);
   return null;
+}
+
+/** Stays visible until the user reloads or closes it, unlike a toast. */
+function UpdateBanner() {
+  const { needRefresh, dismissed, apply } = useUpdates();
+  return (
+    <AnimatePresence>
+      {needRefresh && !dismissed && (
+        <motion.div
+          className="toast"
+          role="status"
+          initial={{ opacity: 0, y: -24, x: '-50%' }}
+          animate={{ opacity: 1, y: 0, x: '-50%' }}
+          exit={{ opacity: 0, y: -16, x: '-50%' }}
+          transition={{ type: 'spring', damping: 30, stiffness: 380 }}
+          style={{ zIndex: 89 }}
+        >
+          <span className="toast__icon">
+            <RefreshCw />
+          </span>
+          <span className="grow">A new version of TGLI is ready.</span>
+          <button className="toast__action" onClick={apply}>
+            Reload
+          </button>
+          <button className="toast__action" onClick={() => useUpdates.setState({ dismissed: true })} style={{ color: 'var(--text-3)' }}>
+            Later
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 }
 
 function ReminderLoop({ lockInId }: { lockInId: string }) {
@@ -77,6 +129,7 @@ export default function App() {
     <MotionConfig reducedMotion={effects === 'minimal' ? 'always' : 'user'}>
       <AmbientBackground />
       <UpdatePrompt />
+      <UpdateBanner />
       <AnimatePresence mode="wait">
         {loading ? null : showOnboarding ? (
           <motion.div key="onboarding" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>

@@ -8,6 +8,7 @@ import {
   LayoutGrid,
   ListChecks,
   Palette,
+  RefreshCw,
   ShieldCheck,
   Smartphone,
   Target,
@@ -23,7 +24,8 @@ import { formatRange } from '@/domain/dates';
 import { lockInTimeline } from '@/domain/timeline';
 import { useActive } from '@/state/lockin';
 import { useNav, type RouteName } from '@/nav/store';
-import { useUI } from '@/state/ui';
+import { toast, useUI } from '@/state/ui';
+import { checkForUpdate, formatBuild, useUpdates } from '@/services/updates';
 import { isStandalone } from '@/services/platform';
 import { ProgressRing } from '@/design/visuals';
 
@@ -44,6 +46,18 @@ function Row({ icon: Icon, title, sub, value, to, params, onPress }: { icon: Luc
       </span>
     </button>
   );
+}
+
+function VersionRow() {
+  const { needRefresh, checking, apply } = useUpdates();
+  const sub = checking ? 'Checking for updates…' : needRefresh ? 'A new version is ready. Tap to update.' : `Built ${formatBuild()}. Tap to check for updates.`;
+  const onPress = async () => {
+    if (needRefresh) return apply();
+    const result = await checkForUpdate();
+    if (result === 'latest') toast('You have the latest version.', { tone: 'success' });
+    else if (result === 'unavailable') toast('Updates are checked when TGLI runs from the Home Screen or a browser tab.');
+  };
+  return <Row icon={RefreshCw} title="App version" sub={sub} value={needRefresh ? <Badge>Update</Badge> : undefined} onPress={() => void onPress()} />;
 }
 
 export default function ProfilePage() {
@@ -122,6 +136,13 @@ export default function ProfilePage() {
         <div className="list">
           <Row icon={ShieldCheck} title="Privacy" sub="Photo blur, what's stored where" to="settingsPrivacy" />
           <Row icon={Database} title="Data" sub="Export, import, delete, demo mode" to="settingsData" value={dataMode === 'demo' ? <Badge tone="warn">Demo</Badge> : undefined} />
+        </div>
+      </Block>
+
+      <Block>
+        <div className="t-eyebrow section-label">App</div>
+        <div className="list">
+          <VersionRow />
         </div>
       </Block>
 
