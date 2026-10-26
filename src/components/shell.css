@@ -108,21 +108,23 @@ html[data-vp-gap] .ambient__vignette {
     linear-gradient(to top, var(--bg-0) 0, rgba(5, 8, 7, 0) 160px),
     radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
 }
-/* iOS 26 paints that band in the background-color of the fixed element touching
-   the bottom edge (otherwise the tab bar's green), so give it a solid one that
-   matches the fade above. Sheets (z 60) still cover it and lend their own colour. */
+/* iOS paints that band in the background-color of the fixed element touching the
+   bottom edge, and no DOM element can draw into it. So in gap mode the tab bar
+   docks to the edge with a solid colour and the band continues it, like a native
+   tab bar running under the home indicator. The guard sits behind the app and
+   gives iOS the same colour while the tab bar is absent or still fading in. */
 .edge-guard {
   display: none;
 }
 html[data-vp-gap] .edge-guard {
   display: block;
   position: fixed;
-  z-index: 50;
+  z-index: 0;
   left: 0;
   right: 0;
   bottom: 0;
   height: 10px;
-  background-color: var(--bg-0);
+  background-color: var(--tabbar-dock);
 }
 .app__viewport {
   position: relative;
@@ -339,6 +341,19 @@ html[data-vp-gap] .edge-guard {
   border-radius: 50%;
   background: var(--warn);
   box-shadow: 0 0 0 2px #0b110e;
+}
+
+html[data-vp-gap] .tabbar {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  transform: none;
+  border-radius: 24px 24px 0 0;
+  background: var(--tabbar-dock);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.35);
 }
 
 /* ═════════════════════ Desktop ═════════════════════ */
