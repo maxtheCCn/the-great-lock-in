@@ -26,6 +26,7 @@ import { useActive } from '@/state/lockin';
 import { useNav, type RouteName } from '@/nav/store';
 import { toast, useUI } from '@/state/ui';
 import { checkForUpdate, formatBuild, useUpdates } from '@/services/updates';
+import { viewportGap } from '@/services/viewportHeal';
 import { isStandalone } from '@/services/platform';
 import { ProgressRing } from '@/design/visuals';
 
@@ -50,7 +51,9 @@ function Row({ icon: Icon, title, sub, value, to, params, onPress }: { icon: Luc
 
 function VersionRow() {
   const { needRefresh, checking, apply } = useUpdates();
-  const sub = checking ? 'Checking for updates…' : needRefresh ? 'A new version is ready. Tap to update.' : `Built ${formatBuild()}. Tap to check for updates.`;
+  const gap = viewportGap();
+  const built = `Built ${formatBuild()}${gap ? ` · iOS screen gap ${gap} pt` : ''}. Tap to check for updates.`;
+  const sub = checking ? 'Checking for updates…' : needRefresh ? 'A new version is ready. Tap to update.' : built;
   const onPress = async () => {
     if (needRefresh) return apply();
     const result = await checkForUpdate();

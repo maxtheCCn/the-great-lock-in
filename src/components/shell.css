@@ -90,6 +90,24 @@ html[data-effects='minimal'] .ambient__grain {
   display: flex;
   justify-content: center;
 }
+/* While iOS leaves a band below a short viewport (see viewportHeal.ts), fade the
+   bottom edge into the page background that iOS paints the band with. */
+html[data-vp-gap] .app::after {
+  content: '';
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--tabbar-h) + 48px);
+  pointer-events: none;
+  background: linear-gradient(to top, var(--bg-0) 0%, rgba(5, 8, 7, 0.88) 22%, rgba(5, 8, 7, 0) 100%);
+}
+html[data-vp-gap] .ambient__vignette {
+  background:
+    linear-gradient(to top, var(--bg-0) 0, rgba(5, 8, 7, 0) 160px),
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
 .app__viewport {
   position: relative;
   width: 100%;
